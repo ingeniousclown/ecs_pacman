@@ -88,7 +88,7 @@ std::vector<unsigned int> EntityManager::getAllEntitiesWithComponent(std::vector
 //very naive implementation - no int overflow protection
 unsigned int EntityManager::createNewEntity()
 {
-	_entities.insert(++_nextUnusedId);
+	_entities.insert(_nextUnusedId++);
 	return _nextUnusedId;
 }
 
