@@ -1,4 +1,5 @@
 #include "../headers/managers/EntityManager.h"
+#include "../headers/Constants.h"
 
 EntityManager::EntityManager() :
 	_nextUnusedId(0)
@@ -9,9 +10,12 @@ EntityManager::~EntityManager()
 	//delete all the components
 }
 
-Component* EntityManager::getComponent(const unsigned int entityId, ComponentType cType)
+Component* EntityManager::getComponent(const unsigned int entity, ComponentType cType)
 {
-	return _components.find(cType)->second.find(entityId)->second;
+	if(!doesEntityExist(entity))
+		throw Exception::NO_SUCH_ENTITY_EXCEPTION;
+
+	return _components.find(cType)->second.find(entity)->second;
 }
 
 std::vector<unsigned int> EntityManager::getAllEntitiesWithComponent(ComponentType cType)
@@ -27,7 +31,7 @@ std::vector<unsigned int> EntityManager::getAllEntitiesWithComponent(ComponentTy
 	//get a more convenient reference to the components we want
 	std::map<unsigned int, Component*> allComponents = cTypeMapIt->second;
 
-	//dump all the unsigned ints into our putput vector
+	//dump all the unsigned ints into our output vector
 	for(std::map<unsigned int, Component*>::iterator it = allComponents.begin();
 		it != allComponents.end(); it++)
 	{
@@ -84,16 +88,34 @@ std::vector<unsigned int> EntityManager::getAllEntitiesWithComponent(std::vector
 //very naive implementation - no int overflow protection
 unsigned int EntityManager::createNewEntity()
 {
-	return ++_nextUnusedId;
+	_entities.insert(++_nextUnusedId);
+	return _nextUnusedId;
 }
 
 void EntityManager::addComponent(const unsigned int entity, ComponentType cType, Component* component)
 {
+	if(!doesEntityExist(entity))
+		throw Exception::NO_SUCH_ENTITY_EXCEPTION;
 
+	_components.find(cType)->second.insert(std::pair<unsigned int, Component*>(entity, component));
 }
 
 //this will erase the reference to a component, so we should delete it
 void EntityManager::removeComponent(const unsigned int entity, ComponentType cType, Component* component)
 {
+	if(!doesEntityExist(entity))
+		throw Exception::NO_SUCH_ENTITY_EXCEPTION;
 
+	//get the map of the components we want
+	std::map<unsigned int, Component*> temp = _components.find(cType)->second;
+
+	//delete the component
+	delete temp.find(entity)->second;
+	//now erase the entity from the map
+	temp.erase(entity);
+}
+
+bool EntityManager::doesEntityExist(const unsigned int entity)
+{
+	return _entities.find(entity) == _entities.end();
 }

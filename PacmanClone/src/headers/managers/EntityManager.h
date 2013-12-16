@@ -29,6 +29,8 @@ public:
 	void addComponent(const unsigned int entity, ComponentType cType, Component* component);
 	void removeComponent(const unsigned int entity, ComponentType cType, Component* component);
 
+	bool doesEntityExist(const unsigned int entity);
+
 private:
 	unsigned int _nextUnusedId;
 
