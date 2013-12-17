@@ -1,5 +1,7 @@
 #include "../headers/managers/EntityManager.h"
 #include "../headers/Constants.h"
+#include <assert.h>
+
 
 EntityManager::EntityManager() :
 	_nextUnusedId(0)
@@ -8,20 +10,38 @@ EntityManager::EntityManager() :
 EntityManager::~EntityManager()
 {
 	//delete all the components
+	printf("Destroying entity manager...\n");
+	int numEntities = _entities.size();
+	int numTypes = _components.size();
+
+	for(std::map<Component::ComponentType, std::map<unsigned int, Component*>>::iterator it = _components.begin();
+		it != _components.end(); it++)
+	{
+		std::map<unsigned int, Component*>& temp = it->second;
+		for(std::map<unsigned int, Component*>::iterator innerIt = temp.begin();
+			innerIt != temp.end(); innerIt++)
+		{
+			delete innerIt->second;
+		}
+		temp.clear();
+	}
+	_components.clear();
+
+	_entities.clear();
+	printf("Done destroying entity manager...\n");
 }
 
-Component* EntityManager::getComponent(const unsigned int entity, ComponentType cType)
+Component* EntityManager::getComponent(const unsigned int entity, Component::ComponentType cType)
 {
-	if(!doesEntityExist(entity))
-		throw Exception::NO_SUCH_ENTITY_EXCEPTION;
+	assert(doesEntityExist(entity));
 
 	return _components.find(cType)->second.find(entity)->second;
 }
 
-std::vector<unsigned int> EntityManager::getAllEntitiesWithComponent(ComponentType cType)
+std::vector<unsigned int> EntityManager::getAllEntitiesWithComponent(Component::ComponentType cType)
 {
 	std::vector<unsigned int> output;
-	std::map<ComponentType, std::map<unsigned int, Component*>>::iterator cTypeMapIt = _components.find(cType);
+	std::map<Component::ComponentType, std::map<unsigned int, Component*>>::iterator cTypeMapIt = _components.find(cType);
 	
 	//make sure component exists
 	if(cTypeMapIt == _components.end())
@@ -42,7 +62,7 @@ std::vector<unsigned int> EntityManager::getAllEntitiesWithComponent(ComponentTy
 }
 
 //this is going to be a first-pass attempt - expect it to be crappy and slow and inefficient
-std::vector<unsigned int> EntityManager::getAllEntitiesWithComponent(std::vector<ComponentType> cTypes)
+std::vector<unsigned int> EntityManager::getAllEntitiesWithComponent(std::vector<Component::ComponentType> cTypes)
 {
 	std::vector<unsigned int> output;
 	int numTypes = cTypes.size();
@@ -88,26 +108,32 @@ std::vector<unsigned int> EntityManager::getAllEntitiesWithComponent(std::vector
 //very naive implementation - no int overflow protection
 unsigned int EntityManager::createNewEntity()
 {
-	_entities.insert(_nextUnusedId++);
-	return _nextUnusedId;
+	unsigned int entity = _nextUnusedId++;
+	_entities.insert(entity);
+	return entity;
 }
 
-void EntityManager::addComponent(const unsigned int entity, ComponentType cType, Component* component)
+void EntityManager::addComponent(const unsigned int entity, Component::ComponentType cType, Component* component)
 {
-	if(!doesEntityExist(entity))
-		throw Exception::NO_SUCH_ENTITY_EXCEPTION;
+	assert(doesEntityExist(entity));
+
+	//check first if _components list has the component type, add it if it doesn't
+	if(_components.find(cType) == _components.end())
+		_components.insert(
+			std::pair<Component::ComponentType,
+				std::map<unsigned int, Component*>>(cType, std::map<unsigned int, Component*>()));
 
 	_components.find(cType)->second.insert(std::pair<unsigned int, Component*>(entity, component));
 }
 
 //this will erase the reference to a component, so we should delete it
-void EntityManager::removeComponent(const unsigned int entity, ComponentType cType, Component* component)
+void EntityManager::removeComponent(const unsigned int entity, Component::ComponentType cType)
 {
-	if(!doesEntityExist(entity))
-		throw Exception::NO_SUCH_ENTITY_EXCEPTION;
+	assert(doesEntityExist(entity));
 
 	//get the map of the components we want
-	std::map<unsigned int, Component*> temp = _components.find(cType)->second;
+	//getting the reference instead of value so we don't accidentally copy
+	std::map<unsigned int, Component*>& temp = _components.find(cType)->second;
 
 	//delete the component
 	delete temp.find(entity)->second;
@@ -117,5 +143,5 @@ void EntityManager::removeComponent(const unsigned int entity, ComponentType cTy
 
 bool EntityManager::doesEntityExist(const unsigned int entity)
 {
-	return _entities.find(entity) == _entities.end();
+	return _entities.find(entity) != _entities.end();
 }

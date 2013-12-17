@@ -1,7 +1,7 @@
 
 
 
-namespace Exception
+namespace Errors
 {
-	const int NO_SUCH_ENTITY_EXCEPTION = -1;
+	const int NO_SUCH_ENTITY_ERROR = -1;
 };

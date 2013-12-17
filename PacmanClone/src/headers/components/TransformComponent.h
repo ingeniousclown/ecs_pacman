@@ -9,6 +9,6 @@ struct TransformComponent :
 	float x;
 	float y;
 	float rotation;	//in rads
-}
+};
 
 #endif

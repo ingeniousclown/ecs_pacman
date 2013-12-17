@@ -84,7 +84,6 @@
     <ClCompile Include="src\managers\EntityManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\headers\components\ComponentType.h" />
     <ClInclude Include="src\headers\components\DrawableComponent.h" />
     <ClInclude Include="src\headers\components\TransformComponent.h" />
     <ClInclude Include="src\headers\components\VelocityComponent.h" />

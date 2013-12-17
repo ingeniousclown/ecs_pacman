@@ -6,7 +6,7 @@
 struct DrawableComponent :
 	Component
 {
-	std::String textureLocation;
+	std::string textureLocation;
 };
 
 #endif
