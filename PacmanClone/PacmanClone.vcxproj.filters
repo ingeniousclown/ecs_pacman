@@ -45,6 +45,12 @@
     <ClCompile Include="src\managers\EntityManager.cpp">
       <Filter>Source Files\managers</Filter>
     </ClCompile>
+    <ClCompile Include="src\systems\RenderSystem.cpp">
+      <Filter>Source Files\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\systems\System.cpp">
+      <Filter>Source Files\systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\interfaces\Component.h">
@@ -67,6 +73,12 @@
     </ClInclude>
     <ClInclude Include="src\headers\Constants.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\interfaces\System.h">
+      <Filter>Header Files\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\systems\RenderSystem.h">
+      <Filter>Header Files\systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include "headers\managers\EntityManager.h"
 #include "headers\components\DrawableComponent.h"
 #include "headers\components\TransformComponent.h"
+#include "headers\systems\RenderSystem.h"
 
 #include <assert.h>
 
@@ -14,6 +15,12 @@ int main()
     shape.setFillColor(sf::Color::Green);
 
 	testEntityMgr();
+
+	std::vector<Component::ComponentType> v;
+	v.push_back(Component::DRAWABLE);
+	v.push_back(Component::TRANSFORM);
+	System* s = new RenderSystem(v);
+	s->run(1.0f);
 
     while (window.isOpen())
     {

@@ -82,6 +82,8 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\managers\EntityManager.cpp" />
+    <ClCompile Include="src\systems\RenderSystem.cpp" />
+    <ClCompile Include="src\systems\System.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\components\DrawableComponent.h" />
@@ -90,7 +92,9 @@
     <ClInclude Include="src\headers\Constants.h" />
     <ClInclude Include="src\headers\Entity.hpp" />
     <ClInclude Include="src\headers\interfaces\Component.h" />
+    <ClInclude Include="src\headers\interfaces\System.h" />
     <ClInclude Include="src\headers\managers\EntityManager.h" />
+    <ClInclude Include="src\headers\systems\RenderSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
