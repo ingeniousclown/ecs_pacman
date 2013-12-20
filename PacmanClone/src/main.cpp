@@ -3,6 +3,7 @@
 #include "headers\components\DrawableComponent.h"
 #include "headers\components\TransformComponent.h"
 #include "headers\systems\RenderSystem.h"
+#include "headers\ServiceLocator.h"
 
 #include <assert.h>
 
@@ -14,7 +15,9 @@ int main()
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 
-	testEntityMgr();
+	//testEntityMgr();
+
+	ServiceLocator::initialize();
 
 	std::vector<Component::ComponentType> v;
 	v.push_back(Component::DRAWABLE);

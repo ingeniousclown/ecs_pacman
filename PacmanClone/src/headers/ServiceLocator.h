@@ -8,7 +8,7 @@ class ServiceLocator
 public:
 	//just initialize all members in here...
 	//a more general implementation could let you provide one yourself
-	static void Initialize();
+	static void initialize();
 
 	static EntityManager* getEntityManager();
 	//static AudioManager* getAudioManager();

@@ -17,7 +17,7 @@ public:
 
 protected:
 	//nobody needs to know what types a system operates on except for itself
-	std::vector<Component::ComponentType> typeList();
+	std::vector<Component::ComponentType> getTypes();
 
 private:
 	std::vector<Component::ComponentType> _types;

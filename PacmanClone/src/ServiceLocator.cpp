@@ -2,7 +2,7 @@
 
 EntityManager* ServiceLocator::_entityManager = NULL;
 
-void ServiceLocator::Initialize()
+void ServiceLocator::initialize()
 {
 	_entityManager = new EntityManager();
 	//_audioManager = new AudioManager();

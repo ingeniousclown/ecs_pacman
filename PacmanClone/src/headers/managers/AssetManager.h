@@ -41,6 +41,10 @@ private:
 	std::map<std::string, sf::Texture*> _textures;	//not sure if i should use image or texture...
 	//std::map<std::string, sf::Sound*> _sounds;
 	//std::map<std::string, sf::Music*> _music;
+
+	//load a texture into the map and also return the texture for convenience
+	sf::Texture* loadTexture(std::string filename);
+	bool isTextureLoaded(std::string filename);
 };
 
 #endif

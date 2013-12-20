@@ -23,6 +23,10 @@ private:
 	//future if I want to have components affect the lighting of a sprite.
 	//we'll see I guess?
 	std::map<unsigned int, sf::Sprite*> _sprites;
+	sf::RenderWindow _window;		//is this the best place for this?
+
+	//load a sprite to the map and return ptr to it for convenience
+	sf::Sprite* loadSprite(const unsigned int entity);
 };
 
 #endif

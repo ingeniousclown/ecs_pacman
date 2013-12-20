@@ -9,7 +9,7 @@ System::~System()
 	_types.clear();
 }
 
-std::vector<Component::ComponentType> System::typeList()
+std::vector<Component::ComponentType> System::getTypes()
 {
 	return _types;
 }
