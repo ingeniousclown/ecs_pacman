@@ -34,6 +34,9 @@
     <Filter Include="Header Files\interfaces">
       <UniqueIdentifier>{c02c7ba7-395b-4880-bb3f-b140273e8665}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\images">
+      <UniqueIdentifier>{35a6e04b-0182-4121-8265-4d1d469ed986}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Entity.cpp">
@@ -92,5 +95,10 @@
     <ClInclude Include="src\headers\managers\AssetManager.h">
       <Filter>Header Files\managers</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\pacman.png">
+      <Filter>Resource Files\images</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #define SERVICELOCATOR_H
 
 #include "managers\EntityManager.h"
+#include "managers\AssetManager.h"
 
 class ServiceLocator
 {
@@ -13,14 +14,14 @@ public:
 	static EntityManager* getEntityManager();
 	//static AudioManager* getAudioManager();
 	//static GameStateManager* getGameStateManager();
-	//static AssetManager* getAssetManager();
+	static AssetManager* getAssetManager();
 	//static SystemManager* getSystemManager();
 
 private:
 	static EntityManager* _entityManager;
 	//static AudioManager* _audioManager;
 	//static GameStateManager* _gameStateManager;
-	//static AssetManager* _assetManager;
+	static AssetManager* _assetManager;
 	//static SystemManager* _systemManager;
 };
 

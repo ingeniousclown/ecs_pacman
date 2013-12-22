@@ -13,6 +13,12 @@ public:
 	
 	void run(const float deltaTime);
 
+	//some wrapper functions for the window object
+	//maybe we should move this to its own manager class?
+	bool isWindowOpen();
+	bool pollWindowEvent(sf::Event& e);
+	void closeWindow();
+
 private:
 	//a repository for our sprites, since components can only be
 	//POD objects.  I want to enforce that design so having this
@@ -23,7 +29,9 @@ private:
 	//future if I want to have components affect the lighting of a sprite.
 	//we'll see I guess?
 	std::map<unsigned int, sf::Sprite*> _sprites;
-	sf::RenderWindow _window;		//is this the best place for this?
+
+	//is this the best place for this?
+	sf::RenderWindow _window;
 
 	//load a sprite to the map and return ptr to it for convenience
 	sf::Sprite* loadSprite(const unsigned int entity);

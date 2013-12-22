@@ -11,10 +11,6 @@ void testEntityMgr();
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1280, 780), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
 	//testEntityMgr();
 
 	ServiceLocator::initialize();
@@ -22,21 +18,26 @@ int main()
 	std::vector<Component::ComponentType> v;
 	v.push_back(Component::DRAWABLE);
 	v.push_back(Component::TRANSFORM);
-	System* s = new RenderSystem(v);
-	s->run(1.0f);
+	System* renderSystem = new RenderSystem(v);
 
-    while (window.isOpen())
+	const unsigned int entity = ServiceLocator::getEntityManager()->createNewEntity();
+	DrawableComponent* draw = new DrawableComponent();
+	draw->textureLocation = "assets/images/pacman.png";
+	TransformComponent* trans = new TransformComponent();
+	trans->x = 30;  trans->y = 30;  trans->rotation = 0;
+	ServiceLocator::getEntityManager()->addComponent(entity, Component::DRAWABLE, draw);
+	ServiceLocator::getEntityManager()->addComponent(entity, Component::TRANSFORM, trans);
+
+    while (static_cast<RenderSystem*>(renderSystem)->isWindowOpen())
     {
         sf::Event event;
-        while (window.pollEvent(event))
+        while (static_cast<RenderSystem*>(renderSystem)->pollWindowEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                window.close();
+                static_cast<RenderSystem*>(renderSystem)->closeWindow();
         }
 
-        window.clear();
-        window.draw(shape);
-        window.display();
+		renderSystem->run(0.05f);
     }
 
     return 0;
