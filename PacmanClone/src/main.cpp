@@ -2,7 +2,11 @@
 #include "headers\managers\EntityManager.h"
 #include "headers\components\DrawableComponent.h"
 #include "headers\components\TransformComponent.h"
+#include "headers\components\VelocityComponent.h"
+#include "headers\components\InputComponent.h"
 #include "headers\systems\RenderSystem.h"
+#include "headers\systems\MovementSystem.h"
+#include "headers\systems\PlayerControllerSystem.h"
 #include "headers\ServiceLocator.h"
 
 #include <assert.h>
@@ -14,19 +18,26 @@ int main()
 	//testEntityMgr();
 
 	ServiceLocator::initialize();
+	System* renderSystem = new RenderSystem();
+	System* movementSystem = new MovementSystem();
+	System* playerControllerSystem = new PlayerControllerSystem();
 
-	std::vector<Component::ComponentType> v;
-	v.push_back(Component::DRAWABLE);
-	v.push_back(Component::TRANSFORM);
-	System* renderSystem = new RenderSystem(v);
-
+	//this block creates an entity with four components
+	//yes, this is the general setup for creating entities
+	//it's a lot, but the eventual goal is to automate the crap out of this
 	const unsigned int entity = ServiceLocator::getEntityManager()->createNewEntity();
 	DrawableComponent* draw = new DrawableComponent();
 	draw->textureLocation = "assets/images/pacman.png";
 	TransformComponent* trans = new TransformComponent();
 	trans->x = 30;  trans->y = 30;  trans->rotation = 0;
+	VelocityComponent* vel = new VelocityComponent();
+	vel->x = 10;	vel->y = 20;
+	InputComponent* input = new InputComponent();
+	input->acceleration = 5;	input->playerNumber = 1;
 	ServiceLocator::getEntityManager()->addComponent(entity, Component::DRAWABLE, draw);
 	ServiceLocator::getEntityManager()->addComponent(entity, Component::TRANSFORM, trans);
+	ServiceLocator::getEntityManager()->addComponent(entity, Component::VELOCITY, vel);
+	ServiceLocator::getEntityManager()->addComponent(entity, Component::INPUT, input);
 
     while (static_cast<RenderSystem*>(renderSystem)->isWindowOpen())
     {
@@ -37,7 +48,9 @@ int main()
                 static_cast<RenderSystem*>(renderSystem)->closeWindow();
         }
 
-		renderSystem->run(0.05f);
+		playerControllerSystem->run(0.01f);
+		movementSystem->run(0.01f);
+		renderSystem->run(0.01f);
     }
 
     return 0;

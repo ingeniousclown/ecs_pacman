@@ -9,7 +9,7 @@
 class System
 {
 public:
-	System(std::vector<Component::ComponentType> types);
+	System();
 	virtual ~System();
 
 	//this is the function that will process entities each frame
@@ -18,6 +18,9 @@ public:
 protected:
 	//nobody needs to know what types a system operates on except for itself
 	std::vector<Component::ComponentType> getTypes();
+	void setTypes(std::vector<Component::ComponentType> types);
+	//retrieve the list of entities for this system's componenttypes
+	std::vector<unsigned int> getEntities();
 
 private:
 	std::vector<Component::ComponentType> _types;

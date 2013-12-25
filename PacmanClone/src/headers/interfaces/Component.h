@@ -9,7 +9,8 @@ struct Component
 	{
 		DRAWABLE,
 		TRANSFORM,
-		VELOCITY
+		VELOCITY,
+		INPUT
 	};
 };
 

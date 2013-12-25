@@ -84,11 +84,14 @@
     <ClCompile Include="src\managers\AssetManager.cpp" />
     <ClCompile Include="src\managers\EntityManager.cpp" />
     <ClCompile Include="src\ServiceLocator.cpp" />
+    <ClCompile Include="src\systems\MovementSystem.cpp" />
+    <ClCompile Include="src\systems\PlayerControllerSystem.cpp" />
     <ClCompile Include="src\systems\RenderSystem.cpp" />
     <ClCompile Include="src\systems\System.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\components\DrawableComponent.h" />
+    <ClInclude Include="src\headers\components\InputComponent.h" />
     <ClInclude Include="src\headers\components\TransformComponent.h" />
     <ClInclude Include="src\headers\components\VelocityComponent.h" />
     <ClInclude Include="src\headers\Constants.h" />
@@ -98,6 +101,8 @@
     <ClInclude Include="src\headers\managers\AssetManager.h" />
     <ClInclude Include="src\headers\managers\EntityManager.h" />
     <ClInclude Include="src\headers\ServiceLocator.h" />
+    <ClInclude Include="src\headers\systems\MovementSystem.h" />
+    <ClInclude Include="src\headers\systems\PlayerControllerSystem.h" />
     <ClInclude Include="src\headers\systems\RenderSystem.h" />
   </ItemGroup>
   <ItemGroup>

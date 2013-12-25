@@ -8,6 +8,8 @@ struct VelocityComponent :
 {
 	float x;
 	float y;
+	float maxX;
+	float maxY;
 };
 
 #endif

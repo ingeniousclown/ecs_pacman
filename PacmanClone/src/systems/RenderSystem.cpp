@@ -3,9 +3,12 @@
 #include "../headers/components/TransformComponent.h"
 #include "../headers/components/DrawableComponent.h"
 
-RenderSystem::RenderSystem(std::vector<Component::ComponentType> types) :
-	System(types)
+RenderSystem::RenderSystem()
 {
+	std::vector<Component::ComponentType> types;
+	types.push_back(Component::DRAWABLE);
+	types.push_back(Component::TRANSFORM);
+	setTypes(types);
 	_window.create(sf::VideoMode(1280, 780), "SFML works!");
 }
 	

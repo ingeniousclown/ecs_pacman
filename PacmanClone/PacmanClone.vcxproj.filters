@@ -60,6 +60,12 @@
     <ClCompile Include="src\managers\AssetManager.cpp">
       <Filter>Source Files\managers</Filter>
     </ClCompile>
+    <ClCompile Include="src\systems\MovementSystem.cpp">
+      <Filter>Source Files\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\systems\PlayerControllerSystem.cpp">
+      <Filter>Source Files\systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\interfaces\Component.h">
@@ -94,6 +100,15 @@
     </ClInclude>
     <ClInclude Include="src\headers\managers\AssetManager.h">
       <Filter>Header Files\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\systems\MovementSystem.h">
+      <Filter>Header Files\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\components\InputComponent.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\systems\PlayerControllerSystem.h">
+      <Filter>Header Files\systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

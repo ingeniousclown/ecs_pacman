@@ -8,7 +8,7 @@ class RenderSystem :
 	public System
 {
 public:
-	RenderSystem(std::vector<Component::ComponentType> types);
+	RenderSystem();
 	~RenderSystem();
 	
 	void run(const float deltaTime);
